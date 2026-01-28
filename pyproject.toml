@@ -1,0 +1,30 @@
+[project]
+name = "django-crashlog"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Marsel Beqiri", email = "marselbeqiri.365@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "black>=26.1.0",
+    "django>=6.0.1",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.21,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "pytest-django>=4.11.1",
+    "ruff>=0.14.13",
+]
+
+[tool.uv.workspace]
+members = [
+    "playground",
+    ".",
+]
