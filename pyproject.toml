@@ -6,7 +6,7 @@ readme = "README.md"
 authors = [
     { name = "Marsel Beqiri", email = "marselbeqiri.365@gmail.com" }
 ]
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
     "black>=26.1.0",
     "django>=6.0.1",
