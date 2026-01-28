@@ -7,7 +7,7 @@ Run the demo project:
 
 Trigger a test error:
 
-- `http://localhost:8000/crashlog/crashlog/ValueError/`
-- `http://localhost:8000/crashlog/crashlog/KeyError/`
+- `http://localhost:8000/stacktrace/stacktrace/ValueError/`
+- `http://localhost:8000/stacktrace/stacktrace/KeyError/`
 
 Check captured events in the Django admin under `Crash events`.

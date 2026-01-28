@@ -1,9 +1,9 @@
-# Django Crashlog
+# Django Stacktrace
 
 Install from PyPI:
 
 ```bash
-pip install django-crashlog
+pip install django-stacktrace
 ```
 
 A reusable Django app that captures exceptions with request context and stores
@@ -14,9 +14,9 @@ for production-grade monitoring, Sentry is recommended.
 ## Quick start
 
 1. Add the app:
-   - `django_crashlog` to `INSTALLED_APPS`
+   - `django_stacktrace` to `INSTALLED_APPS`
 2. Add middleware (signal fallback is disabled automatically when middleware is enabled):
-   - `django_crashlog.middleware.CrashlogMiddleware` in `MIDDLEWARE`
+   - `django_stacktrace.middleware.StacktraceMiddleware` in `MIDDLEWARE`
 3. Apply migrations:
    - `python manage.py migrate`
 4. Trigger a crash and inspect `Crash events` in the Django admin.
@@ -26,7 +26,7 @@ for production-grade monitoring, Sentry is recommended.
 You can capture exceptions directly without middleware:
 
 ```python
-from django_crashlog.event_store import store_crash_event
+from django_stacktrace.event_store import store_crash_event
 
 try:
     1 / 0
@@ -36,93 +36,93 @@ except Exception as exc:
 
 ## Settings
 
-All settings live under a single `CRASHLOG` dictionary. Each key is optional.
+All settings live under a single `STACKTRACE` dictionary. Each key is optional.
 
 ```python
-CRASHLOG = {
-    "CRASHLOG_ENABLED": True,
-    "CRASHLOG_SAMPLE_RATE": 1.0,
-    "CRASHLOG_RATE_LIMIT": 0,
-    "CRASHLOG_CAPTURE_HEADERS": True,
-    "CRASHLOG_CAPTURE_BODY": False,
-    "CRASHLOG_MAX_PAYLOAD_BYTES": 64 * 1024,
-    "CRASHLOG_REDACT_FIELDS": ["password", "token"],
-    "CRASHLOG_REDACT_HEADERS": ["authorization", "cookie"],
-    "CRASHLOG_USER_FIELD": "username",
+STACKTRACE = {
+    "STACKTRACE_ENABLED": True,
+    "STACKTRACE_SAMPLE_RATE": 1.0,
+    "STACKTRACE_RATE_LIMIT": 0,
+    "STACKTRACE_CAPTURE_HEADERS": True,
+    "STACKTRACE_CAPTURE_BODY": False,
+    "STACKTRACE_MAX_PAYLOAD_BYTES": 64 * 1024,
+    "STACKTRACE_REDACT_FIELDS": ["password", "token"],
+    "STACKTRACE_REDACT_HEADERS": ["authorization", "cookie"],
+    "STACKTRACE_USER_FIELD": "username",
 }
 ```
 
 Available keys:
 
-- `CRASHLOG_ENABLED` (default `True`)
-- `CRASHLOG_SAMPLE_RATE` (default `1.0`, 0-1 sampling probability)
-- `CRASHLOG_RATE_LIMIT` (default `0`, per-minute cap; `0` disables)
-- `CRASHLOG_CAPTURE_HEADERS` (default `True`)
-- `CRASHLOG_CAPTURE_BODY` (default `False`)
-- `CRASHLOG_MAX_PAYLOAD_BYTES` (default `65536`)
-- `CRASHLOG_REDACT_FIELDS` (request keys to mask)
-- `CRASHLOG_REDACT_HEADERS` (header keys to mask)
-- `CRASHLOG_USER_FIELD` (user attribute for display name)
+- `STACKTRACE_ENABLED` (default `True`)
+- `STACKTRACE_SAMPLE_RATE` (default `1.0`, 0-1 sampling probability)
+- `STACKTRACE_RATE_LIMIT` (default `0`, per-minute cap; `0` disables)
+- `STACKTRACE_CAPTURE_HEADERS` (default `True`)
+- `STACKTRACE_CAPTURE_BODY` (default `False`)
+- `STACKTRACE_MAX_PAYLOAD_BYTES` (default `65536`)
+- `STACKTRACE_REDACT_FIELDS` (request keys to mask)
+- `STACKTRACE_REDACT_HEADERS` (header keys to mask)
+- `STACKTRACE_USER_FIELD` (user attribute for display name)
 
 ## Settings reference
 
-`CRASHLOG_ENABLED`
+`STACKTRACE_ENABLED`
 
 - Type: `bool`
 - Purpose: Enable or disable crash capturing entirely.
-- Example: `"CRASHLOG_ENABLED": False`
+- Example: `"STACKTRACE_ENABLED": False`
 
-`CRASHLOG_SAMPLE_RATE`
+`STACKTRACE_SAMPLE_RATE`
 
 - Type: `float` between `0.0` and `1.0`
 - Purpose: Probabilistic sampling for high-volume apps.
-- Example: `"CRASHLOG_SAMPLE_RATE": 0.1`
+- Example: `"STACKTRACE_SAMPLE_RATE": 0.1`
 
-`CRASHLOG_RATE_LIMIT`
+`STACKTRACE_RATE_LIMIT`
 
 - Type: `int`
 - Purpose: Per-minute cap; `0` disables rate limiting.
-- Example: `"CRASHLOG_RATE_LIMIT": 120`
+- Example: `"STACKTRACE_RATE_LIMIT": 120`
 
-`CRASHLOG_CAPTURE_HEADERS`
+`STACKTRACE_CAPTURE_HEADERS`
 
 - Type: `bool`
 - Purpose: Include request headers in the captured event.
-- Example: `"CRASHLOG_CAPTURE_HEADERS": True`
+- Example: `"STACKTRACE_CAPTURE_HEADERS": True`
 
-`CRASHLOG_CAPTURE_BODY`
+`STACKTRACE_CAPTURE_BODY`
 
 - Type: `bool`
 - Purpose: Include request body in the captured event.
-- Example: `"CRASHLOG_CAPTURE_BODY": False`
+- Example: `"STACKTRACE_CAPTURE_BODY": False`
 
-`CRASHLOG_MAX_PAYLOAD_BYTES`
+`STACKTRACE_MAX_PAYLOAD_BYTES`
 
 - Type: `int`
 - Purpose: Max bytes kept from request body.
-- Example: `"CRASHLOG_MAX_PAYLOAD_BYTES": 65536`
+- Example: `"STACKTRACE_MAX_PAYLOAD_BYTES": 65536`
 
-`CRASHLOG_REDACT_FIELDS`
+`STACKTRACE_REDACT_FIELDS`
 
 - Type: `list[str]` or `set[str]`
 - Purpose: Request data keys to mask before storage.
-- Example: `"CRASHLOG_REDACT_FIELDS": ["password", "token"]`
+- Example: `"STACKTRACE_REDACT_FIELDS": ["password", "token"]`
 
-`CRASHLOG_REDACT_HEADERS`
+`STACKTRACE_REDACT_HEADERS`
 
 - Type: `list[str]` or `set[str]`
 - Purpose: Header keys to mask before storage.
-- Example: `"CRASHLOG_REDACT_HEADERS": ["authorization", "cookie"]`
+- Example: `"STACKTRACE_REDACT_HEADERS": ["authorization", "cookie"]`
 
-`CRASHLOG_USER_FIELD`
+`STACKTRACE_USER_FIELD`
 
 - Type: `str`
 - Purpose: User attribute used for display name in the event.
-- Example: `"CRASHLOG_USER_FIELD": "username"`
+- Example: `"STACKTRACE_USER_FIELD": "username"`
 
 ## Data model
 
-Events are stored in `django_crashlog.CrashEvent` with indexed fields like level,
+Events are stored in `django_stacktrace.CrashEvent` with indexed fields like level,
 logger, error type, request path, user identifier, and traceback hash, plus a
 JSON payload for full context.
 

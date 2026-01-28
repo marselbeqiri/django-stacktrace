@@ -1,0 +1,109 @@
+{% extends "admin/change_list.html" %}
+
+{% block extrahead %}
+{{ block.super }}
+<style>
+    /* Crash event display classes */
+    .stacktrace-error-type {
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+
+    .stacktrace-error-type a {
+        color: var(--body-fg);
+        text-decoration: none;
+    }
+
+    .stacktrace-error-type a:hover {
+        color: var(--link-fg);
+    }
+
+    .stacktrace-culprit {
+        font-size: 12px;
+        color: var(--link-fg);
+        font-family: monospace;
+        margin-bottom: 2px;
+    }
+
+    .stacktrace-message {
+        font-size: 12px;
+        color: var(--body-quiet-color);
+        max-width: 400px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .stacktrace-event-id {
+        display: inline-block;
+        font-size: 10px;
+        font-family: monospace;
+        color: var(--body-quiet-color);
+        background: var(--darkened-bg);
+        padding: 2px 6px;
+        margin-top: 4px;
+    }
+
+    .stacktrace-timestamp {
+        font-size: 12px;
+        color: var(--body-quiet-color);
+    }
+
+    .stacktrace-count {
+        display: inline-block;
+        padding: 2px 8px;
+        background: var(--darkened-bg);
+        font-weight: 600;
+        font-size: 12px;
+    }
+
+    .stacktrace-count-high {
+        background: var(--error-fg);
+        color: var(--body-bg);
+    }
+
+    .stacktrace-level {
+        display: inline-block;
+        padding: 2px 6px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .stacktrace-level-error {
+        background: var(--error-fg);
+        color: var(--body-bg);
+    }
+
+    .stacktrace-level-warning {
+        background: var(--message-warning-bg);
+        color: var(--body-fg);
+    }
+
+    .stacktrace-level-info {
+        background: var(--message-info-bg);
+        color: var(--body-fg);
+    }
+
+    .stacktrace-logger {
+        font-size: 12px;
+        color: var(--body-quiet-color);
+        font-family: monospace;
+    }
+
+    .stacktrace-server {
+        font-size: 11px;
+        color: var(--body-quiet-color);
+    }
+
+    .stacktrace-path {
+        font-size: 12px;
+        color: var(--body-quiet-color);
+        font-family: monospace;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
+{% endblock %}

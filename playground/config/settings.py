@@ -37,13 +37,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "crashlog",
-    "django_crashlog",
+    "example",
+    "django_stacktrace",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "django_crashlog.middleware.CrashlogMiddleware",
+    "django_stacktrace.middleware.StacktraceMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -52,16 +52,16 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CRASHLOG = {
-    "CRASHLOG_ENABLED": True,
-    "CRASHLOG_LOGGING_ENABLED": True,
-    "CRASHLOG_CELERY_ENABLED": True,
-    "CRASHLOG_SAMPLE_RATE": 1.0,
-    "CRASHLOG_RATE_LIMIT": 0,
-    "CRASHLOG_CAPTURE_HEADERS": True,
-    "CRASHLOG_CAPTURE_BODY": True,
-    "CRASHLOG_CAPTURE_BODY_BYTES": 2048,
-    "CRASHLOG_MAX_PAYLOAD_BYTES": 64 * 1024,
+STACKTRACE = {
+    "STACKTRACE_ENABLED": True,
+    "STACKTRACE_LOGGING_ENABLED": True,
+    "STACKTRACE_CELERY_ENABLED": True,
+    "STACKTRACE_SAMPLE_RATE": 1.0,
+    "STACKTRACE_RATE_LIMIT": 0,
+    "STACKTRACE_CAPTURE_HEADERS": True,
+    "STACKTRACE_CAPTURE_BODY": True,
+    "STACKTRACE_CAPTURE_BODY_BYTES": 2048,
+    "STACKTRACE_MAX_PAYLOAD_BYTES": 64 * 1024,
 }
 
 ROOT_URLCONF = "config.urls"

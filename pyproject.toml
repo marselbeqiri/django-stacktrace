@@ -1,5 +1,5 @@
 [project]
-name = "django-crashlog"
+name = "django-stacktrace"
 version = "0.1.1"
 description = "Add your description here"
 readme = "README.md"
